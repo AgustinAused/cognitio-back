@@ -19,3 +19,11 @@ hs_err_pid*
 replay_pid*
 
 
+#Idea files
+.idea/
+*.iml
+
+#Eclipse files
+
+
+
