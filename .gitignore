@@ -1,10 +1,48 @@
+# Visual Studio Code settings
+.vscode/
+
+# Environment variables
 .env
-
-/__pycache__
-/.vscode
-/.idea
-/.pytest_cache
-
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
 
 
+# Package management files
+package-lock.json
+yarn.lock
 
+# Build output directories
+build/
+dist/
+__pycache__/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Dependency directories
+.bower_components/
+jspm_packages/
+
+# Coverage directory
+coverage/
+
+# Cache directories
+.cache/
+.npm/
+.pnpm-store/
+.eslintcache
+
+# IDE specific
+.idea/
+.DS_Store
+
+# Miscellaneous
+*.tgz
+*.bak
+*.tmp
