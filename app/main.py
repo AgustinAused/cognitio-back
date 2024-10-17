@@ -4,9 +4,9 @@ from app.database.db import create_db_and_tables
 
 app = FastAPI()
 
-@app.on_event("startup")
-async def on_startup():
-     await create_db_and_tables()
+# @app.on_event("startup")
+# async def on_startup():
+#      await create_db_and_tables()
 
 # Incluir routers (rutas)
 app.include_router(user_r.router)
