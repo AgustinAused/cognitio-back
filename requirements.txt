@@ -1,7 +1,11 @@
-fastapi==0.103.1
-uvicorn[standard]==0.23.0
-SQLAlchemy==2.0.21
-pydantic==2.4.0
+fastapi
+uvicorn[standard]
+SQLAlchemy
+pydantic
 openai
 python-dotenv
-asyncpg==0.27.0
+asyncpg
+passlib 
+bcrypt 
+python-jose[cryptography] 
+email-validator
