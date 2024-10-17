@@ -9,7 +9,7 @@ app = FastAPI()
 #      await create_db_and_tables()
 
 # Incluir routers (rutas)
-app.include_router(user_r.router)
+app.include_router(user_r.router,tags=['User'],prefix='/user')
 
 @app.get("/")
 def read_root():
