@@ -11,6 +11,10 @@ app = FastAPI()
 # Incluir routers (rutas)
 app.include_router(user_r.router,tags=['User'],prefix='/user')
 
+# @app.on_event("startup")
+# async def on_startup():
+#     await create_db_and_tables()
+
 @app.get("/")
 def read_root():
     return {"message": "Welcome to FastAPI Project!"}

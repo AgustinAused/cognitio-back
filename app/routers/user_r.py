@@ -18,3 +18,7 @@ async def login_user(user: UserLogin, db: AsyncSession = Depends(get_db)):
 @router.post("/refresh")
 async def refresh_access_token(refresh_token: str):
     return await user_c.refresh_access_token(refresh_token)
+
+@router.get("/{user_id}")
+async def get_user(db: AsyncSession = Depends(get_db), user_id:int = None) -> UserResponse:
+    return await user_c.get_user(db, user_id)

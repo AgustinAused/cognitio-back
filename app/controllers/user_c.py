@@ -26,3 +26,9 @@ async def refresh_access_token(refresh_token: str):
         raise HTTPException(status_code=400, detail="Invalid refresh token")
     
     return {"access_token": new_access_token, "token_type": "bearer"}
+
+
+# Obtener todos los usuarios
+async def get_user(db: AsyncSession, user_id: int = None):
+    users = await user_s.get_user(db, user_id)
+    return users
