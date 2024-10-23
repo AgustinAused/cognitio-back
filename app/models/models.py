@@ -1,7 +1,7 @@
 ﻿from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
 from app.database.db import Base
-
+from pydantic import BaseModel
 
 class User(Base):
     __tablename__ = 'users'
@@ -35,4 +35,7 @@ class ProgressLevel(Base):
 
 
 
-
+class GameDto(BaseModel):
+    game_number: int
+    difficulty: int
+    number_excercises: int
