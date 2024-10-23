@@ -3,6 +3,7 @@ from app.models.models import ProgressLevel
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.sql.expression import select
 from app.services.user_s import get_user_by_token
+from datetime import datetime
 
 
 async def create_progress_level(db: AsyncSession, progress: ProgressCreated, tkn: str):
@@ -36,7 +37,7 @@ async def create_progress_level(db: AsyncSession, progress: ProgressCreated, tkn
         ex4_completed=progress.ex4_completed,
         ex5_completed=progress.ex5_completed,
         score=score, 
-        completed_at=progress.completed_at
+        completed_at = datetime.now().date()
     )
 
     # Guardar en la base de datos

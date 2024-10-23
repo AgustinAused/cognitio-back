@@ -12,7 +12,6 @@ class ProgressCreated(ProgressBase):
     ex3_completed: bool
     ex4_completed: bool
     ex5_completed: bool
-    completed_at: Optional[str] = None
 
 
 class ProgressUpdate(ProgressBase):
