@@ -1,7 +1,6 @@
-﻿from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, DateTime
+﻿from sqlalchemy import Column, Integer, String, Boolean, ForeignKey, DateTime, REAL
 from sqlalchemy.orm import relationship
 from app.database.db import Base
-from pydantic import BaseModel
 
 class User(Base):
     __tablename__ = 'users'
@@ -30,12 +29,10 @@ class ProgressLevel(Base):
     ex4_completed = Column(Boolean, nullable=False, default=False)
     ex5_completed = Column(Boolean, nullable=False, default=False)
 
+    score = Column(REAL, nullable=False, default=0)
+
     # Relación con el usuario
     user = relationship("User", back_populates="progress_levels")
 
 
 
-class GameDto(BaseModel):
-    game_number: int
-    difficulty: int
-    number_excercises: int

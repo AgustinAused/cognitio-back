@@ -1,6 +1,6 @@
 from fastapi import HTTPException
 from app.services import game_s
-from app.models.models import GameDto
+from app.schemas.game_schm import GameDto
 
 async def generate_game(game : GameDto):
     game : object = await game_s.generate_game(game.game_number,game.number_excercises,game.difficulty)

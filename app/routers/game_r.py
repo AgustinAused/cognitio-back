@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from app.controllers import game_c
-from app.models.models import GameDto
+from app.schemas.game_schm import GameDto
 
 router = APIRouter()
 
