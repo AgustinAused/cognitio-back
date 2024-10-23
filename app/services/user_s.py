@@ -46,3 +46,14 @@ async def get_user(db: AsyncSession, user_id: int = None):
     result = await db.execute(select(User).where(User.id == user_id))
     user = result.scalars().first()
     return user
+
+async def get_user_by_token(db: AsyncSession, tkn: str):
+        payload = verify_token(tkn)
+        if not payload:
+                return None
+        email = payload.get("sub")
+        if not email:
+                return None
+        user = await db.execute(select(User).where(User.email == email))
+        user = user.scalars().first()
+        return user
