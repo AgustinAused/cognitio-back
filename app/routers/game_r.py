@@ -4,6 +4,6 @@ from app.models.models import GameDto
 
 router = APIRouter()
 
-@router.get("/generate/")
+@router.post("/generate/")
 async def generate_game(game: GameDto):
     return await game_c.generate_game(game)
