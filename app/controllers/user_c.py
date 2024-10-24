@@ -1,6 +1,6 @@
 from fastapi import HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
-from app.schemas.user_schm import UserCreate, UserLogin
+from app.schemas.user_schm import UserCreate, UserLogin, UserUpdate
 from app.services import user_s
 from app.utils.jwt import create_access_token, create_refresh_token
 
@@ -32,3 +32,21 @@ async def refresh_access_token(refresh_token: str):
 async def get_user(db: AsyncSession, user_id: int = None):
     users = await user_s.get_user(db, user_id)
     return users
+
+
+# Obtener usuario por token
+async def get_user_by_token(db: AsyncSession, tkn: str):
+    user = await user_s.get_user_by_token(db, tkn)
+    return user
+
+# Update user
+async def update_user(user: UserUpdate, db: AsyncSession):
+    db_user = await user_s.update_user(db, user)
+    return db_user
+
+# Update user image
+async def update_user_image(image: str, db: AsyncSession, tkn: str):
+    db_user = await user_s.update_user_image(db, image, tkn)
+    return db_user
+
+
