@@ -15,7 +15,7 @@ def verify_password(plain_password: str, hashed_password: str) -> bool:
 
 async def create_user(db: AsyncSession, user: UserCreate):
     hashed_password = hash_password(user.password)
-    db_user = User(email=user.email, password=hashed_password, username=user.username, is_active=True)
+    db_user = User(email=user.email, password=hashed_password, image_url=user.image_url, username=user.username, is_active=True)
     db.add(db_user)
     await db.commit()
     await db.refresh(db_user)
