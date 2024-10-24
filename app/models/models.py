@@ -9,9 +9,10 @@ class User(Base):
     username = Column(String, unique=True, index=True)
     email = Column(String, unique=True, index=True)
     password = Column(String)
+    image_url = Column(String)
     is_active = Column(Boolean, default=True)
 
-     # Relación con los niveles de progreso
+    # Relación con los niveles de progreso
     progress_levels = relationship("ProgressLevel", back_populates="user")
 
 
@@ -19,15 +20,10 @@ class ProgressLevel(Base):
     __tablename__ = 'progress_levels'
 
     id = Column(Integer, primary_key=True, index=True)
+    type = Column(String, nullable=False, index=True)
     level = Column(Integer, nullable=False)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)  
     completed_at = Column(DateTime, nullable=True)  
-
-    ex1_completed = Column(Boolean, nullable=False, default=False)
-    ex2_completed = Column(Boolean, nullable=False, default=False)
-    ex3_completed = Column(Boolean, nullable=False, default=False)
-    ex4_completed = Column(Boolean, nullable=False, default=False)
-    ex5_completed = Column(Boolean, nullable=False, default=False)
 
     score = Column(REAL, nullable=False, default=0)
 
