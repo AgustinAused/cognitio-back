@@ -21,6 +21,7 @@ class ProgressUpdate(ProgressBase):
 class ProgressOut(ProgressBase):
     id: int
     completed_at: Optional[str] = None
-    score: float
+    correct: int
+    incorrect: int
     class Config:
         from_attributes = True
