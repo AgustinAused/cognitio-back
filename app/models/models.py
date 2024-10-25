@@ -24,8 +24,8 @@ class ProgressLevel(Base):
     level = Column(Integer, nullable=False)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)  
     completed_at = Column(DateTime, nullable=True)  
-
-    score = Column(REAL, nullable=False, default=0)
+    total = Column(Integer, nullable=False)
+    correct = Column(Integer, nullable=False)
 
     # Relación con el usuario
     user = relationship("User", back_populates="progress_levels")
