@@ -4,7 +4,7 @@ from typing import Optional
 class UserCreate(BaseModel):
     username: str
     email: EmailStr
-    image_url: str
+    image_url: str | None = None
     password: str
 
 class UserResponse(BaseModel):
