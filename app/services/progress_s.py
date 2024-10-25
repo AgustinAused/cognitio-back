@@ -12,16 +12,8 @@ async def create_progress_level(db: AsyncSession, progress: ProgressCreated, tkn
     if not user:
         return None
     
-    exercises_completed = [
-        progress.ex1_completed,
-        progress.ex2_completed,
-        progress.ex3_completed,
-        progress.ex4_completed,
-        progress.ex5_completed
-    ]
-    
-    total_exercises = len(exercises_completed)  
-    completed_exercises = sum(exercises_completed)  
+    total_exercises = len(ProgressCreated.exercises_completed)  
+    completed_exercises = sum(ProgressCreated.exercises_completed)  
     
     # Calcular el porcentaje de ejercicios completados
     score = (completed_exercises / total_exercises) * 100
@@ -31,11 +23,7 @@ async def create_progress_level(db: AsyncSession, progress: ProgressCreated, tkn
     progress_level = ProgressLevel(
         level=progress.level,
         user_id=user.id,
-        ex1_completed=progress.ex1_completed,
-        ex2_completed=progress.ex2_completed,
-        ex3_completed=progress.ex3_completed,
-        ex4_completed=progress.ex4_completed,
-        ex5_completed=progress.ex5_completed,
+        type=progress.type,
         score=score, 
         completed_at = datetime.now().date()
     )
