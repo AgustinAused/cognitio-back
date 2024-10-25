@@ -8,12 +8,14 @@ class ProgressBase(BaseModel):
 
 
 class ProgressCreated(ProgressBase):
-    exercises_completed: List[bool]
+    correct: int
+    incorrect: int
 
 
 class ProgressUpdate(ProgressBase):
-    exercises_completed: Optional[List[bool]] = None
     completed_at: Optional[str] = None
+    correct: Optional[int] = None
+    incorrect: Optional[int] = None
 
 
 class ProgressOut(ProgressBase):
