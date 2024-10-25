@@ -8,8 +8,19 @@ from app.schemas.progress_schm import ProgressCreated, ProgressOut
 router = APIRouter()
 
 @router.post("/", response_model= ProgressOut)
-async def create_progress_level(progress: ProgressCreated, bearer_token: Annotated[str | None, Header()], db: AsyncSession = Depends(get_db)):
-    return await progress_c.create_progress_level(progress, db, bearer_token)
+async def add_progress_level(
+    progress: ProgressCreated,
+    bearer_token: Annotated[str | None, Header()],
+    db: AsyncSession = Depends(get_db)
+):
+    # Comprobamos si el nivel de progreso ya existe
+    existing_progress = await progress_c.check_exist_progress_level(db,progress.level,progress.type, progress.user_id)
+    if existing_progress:
+        # si existe
+        return await progress_c.update_progress_level(db, progress, bearer_token)
+    # si no existe
+    return await progress_c.create_progress_level(db, progress, bearer_token)
+
 
 @router.get("/", response_model= ProgressOut)    
 async def get_progress_level(bearer_token: Annotated[str | None, Header()], db: AsyncSession = Depends(get_db)):

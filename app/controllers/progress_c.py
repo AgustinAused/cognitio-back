@@ -17,5 +17,20 @@ async def get_progress_level(db: AsyncSession, tkn: str):
     return progress
 
 
+async def update_progress_level(progress: ProgressCreated, db: AsyncSession, tkn: str):
+    progress = await progress_s.update_progress_level(db, progress, tkn)
+    if not progress:
+        raise HTTPException(status_code=400, detail="Error updating progress")
+    return progress
+
+async def check_exist_progress_level(db: AsyncSession, level: int, type: str, user_id: int):
+    progress = await progress_s.check_exist_progress_level(db, level, type, user_id)
+    if not progress:
+        return None
+    return progress
+
+
+
+
 
 
