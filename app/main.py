@@ -1,8 +1,18 @@
 ﻿from fastapi import FastAPI
 from app.routers import user_r, game_r, progress_r 
 from app.database.db import create_db_and_tables
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
+
+# CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # @app.on_event("startup")
 # async def on_startup():
