@@ -1,1 +1,2 @@
-web: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+web: fastapi run main.py --reload --host 0.0.0.0 --port $PORT
+ 
