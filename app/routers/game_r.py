@@ -4,6 +4,6 @@ from app.schemas.game_schm import GameDto
 
 router = APIRouter()
 
-@router.post("/generate/syn_ant")
+@router.post("/generate/")
 async def generate_game(game: GameDto):
     return await game_c.generate_game(game)
