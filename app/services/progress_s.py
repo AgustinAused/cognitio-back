@@ -11,20 +11,13 @@ async def create_progress_level(db: AsyncSession, progress: ProgressCreated, tkn
     user = await get_user_by_token(db, tkn)
     if not user:
         return None
-    
-    total_exercises = len(ProgressCreated.exercises_completed)  
-    completed_exercises = sum(ProgressCreated.exercises_completed)  
-    
-    # Calcular el porcentaje de ejercicios completados
-    score = (completed_exercises / total_exercises) * 100
-
-
     # Crear instancia de ProgressLevel con el score calculado
     progress_level = ProgressLevel(
         level=progress.level,
         user_id=user.id,
         type=progress.type,
-        score=score, 
+        correct=progress.correct,
+        incorrect=progress.incorrect, 
         completed_at = datetime.now().date()
     )
 
@@ -35,6 +28,19 @@ async def create_progress_level(db: AsyncSession, progress: ProgressCreated, tkn
     
     return progress_level
 
+async def update_progress_level(db: AsyncSession, progress: ProgressCreated, tkn: str):
+    user = await get_user_by_token(db, tkn)
+    if not user:
+        return None
+    result = await db.execute(select(ProgressLevel).where(ProgressLevel.user_id == user.id))
+    progress_level = result.scalars().first()
+    if progress_level:
+        progress_level.correct =+ progress.correct
+        progress_level.total = progress.incorrect + progress.correct
+        progress_level.completed_at = datetime.now().date()
+        await db.commit()
+        await db.refresh(progress_level)
+    return progress_level
 
 async def get_progress_level(db: AsyncSession, tkn: str):
     user = await get_user_by_token(db, tkn)
@@ -42,3 +48,7 @@ async def get_progress_level(db: AsyncSession, tkn: str):
     progress = result.all()
     return progress
 
+async def check_exist_progress_level(db: AsyncSession, level: int, type: str, user_id: int):
+    result = await db.execute(select(ProgressLevel).where(ProgressLevel.level == level).where(ProgressLevel.type == type).where(ProgressLevel.user_id == user_id))
+    progress = result.scalars().first()
+    return progress
