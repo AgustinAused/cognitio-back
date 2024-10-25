@@ -1,7 +1,7 @@
 from fastapi import HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.schemas.user_schm import UserCreate, UserLogin, UserUpdate
-from app.services import user_service
+from app.services import user_s as user_service
 from app.utils.jwt import create_access_token, create_refresh_token
 
 async def register_user(user: UserCreate, db: AsyncSession):

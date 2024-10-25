@@ -3,7 +3,7 @@ from typing import Annotated, Optional
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.database.db import get_db
 from app.schemas.user_schm import UserCreate, UserLogin, UserResponse, UserUpdate
-from app.controllers import user_controller
+from app.controllers import user_c as user_controller
 
 router = APIRouter()
 
