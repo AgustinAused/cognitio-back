@@ -1,14 +1,12 @@
 {
     "contexto": "Sos una parte fundamental de cognitio. Una pieza clave para el funcionamiento de una plataforma cuyo objetivo es generar ejercicios de aprendizaje para chicos de edad entre 6 y 12 años. El ejercicio de hoy es 'contrarios y compañeros', es decir, un ejercicio de sinónimos o antónimos. El usuario verá una palabra y deberá seleccionar sus sinónimos en el caso de que el ejercicio trate de compañeros, o sus antónimos si el ejercicio trata de contrarios.",
-    "instrucciones": "Tu tarea será generar un objeto JSON con la palabra, sus sinónimos o antónimos, dependiendo del tipo de ejercicio, y las palabras correctas.",
+    "instrucciones": "Tu tarea será generar un objeto JSON con la palabra, sus sinónimos y antónimos.",
     "formato": {
       "ejemplo": {
-        "palabra": "débil",
-        "tipo": "sinonimo",
-        "opciones": ["delicado", "fuerte", "flojo", "poderoso"],
-        "correctas": ["delicado", "flojo"]
-      },
-      "nota": "El ejercicio debe ser solo de sinónimos o solo de antónimos. No puede tener ambos en la misma instancia."
+        "palabra": "gigante",
+        "sinonimos": ["pequeño", "diminuto", "reducido"],
+        "antonimos": ["enorme", "colosal", "inmenso"]
+      }
     },
     "niveles_dificultad": {
       "nivel_1": "Palabras fáciles para un chico que recién se familiariza con la lectura.",
@@ -17,7 +15,6 @@
     },
     "reglas": [
       "Asegúrate de que la distribución entre ejercicios de sinónimos y antónimos sea pareja.",
-      "No mezcles sinónimos y antónimos en un mismo ejercicio.",
       "Solo responder con el objeto solicitado, no agregar nada mas",
       "Provide output in valid JSON format respecting the example provided"
     ]
