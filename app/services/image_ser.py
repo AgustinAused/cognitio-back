@@ -2,6 +2,7 @@ import cloudinary
 import cloudinary.uploader
 import os
 import cloudinary.api
+from fastapi import UploadFile
 
 # Configuration
 cloudinary.config(
@@ -24,7 +25,7 @@ async def list_avatars():
         return None
 
 # Función para subir un avatar
-async def upload_avatar(file):
+async def upload_avatar(file: UploadFile):
     try:
         # Carga la imagen en Cloudinary
         upload_response = cloudinary.uploader.upload(file.file, folder="avatars/")

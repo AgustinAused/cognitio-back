@@ -1,20 +1,22 @@
-from fastapi import HTTPException, UploadFile, File
-from sqlalchemy.ext.asyncio import AsyncSession
-from app.services import image_ser as image_s
+from fastapi import HTTPException, status, UploadFile
+from app.services import image_service
 
-
-# listar avatares
+# Listar avatares
 async def list_avatars():
-    try:
-        return await image_s.list_avatars()
-    except Exception as e:
-        print(f"Error al listar los avatares: {e}")
-        raise HTTPException(status_code=400, detail="Error listing avatars")
-    
-# subir avatar
-async def upload_avatar(file: UploadFile = File(...)):
-    try:
-        return await image_s.upload_avatar(file)
-    except Exception as e:
-        print(f"Error al subir el avatar: {e}")
-        raise HTTPException(status_code=400, detail="Error uploading avatar")
+    avatar_urls = await image_service.list_avatars()
+    if avatar_urls is None:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Error al obtener la lista de avatares"
+        )
+    return avatar_urls
+
+# Subir un avatar
+async def create_avatar(file: UploadFile):
+    secure_url = await image_service.upload_avatar(file)
+    if secure_url is None:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Error al subir el avatar"
+        )
+    return secure_url
