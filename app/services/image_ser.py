@@ -21,7 +21,20 @@ async def list_avatars():
         return avatar_urls
     except Exception as e:
         print(f"Error al listar los avatares: {e}")
-        return []
+        return None
+
+# Función para subir un avatar
+async def upload_avatar(file):
+    try:
+        # Carga la imagen en Cloudinary
+        upload_response = cloudinary.uploader.upload(file.file, folder="avatars/")
+        # Obtiene la URL segura de la imagen
+        secure_url = upload_response['secure_url']
+        return secure_url
+    except Exception as e:
+        print(f"Error al subir el avatar: {e}")
+        return None
+    
 
 
 
