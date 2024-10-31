@@ -17,3 +17,4 @@ async def upload_avatar(file: UploadFile = File(...)):
         return await image_s.upload_avatar(file)
     except Exception as e:
         print(f"Error al subir el avatar: {e}")
+        raise HTTPException(status_code=400, detail="Error uploading avatar")
