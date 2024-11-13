@@ -48,7 +48,7 @@ async def get_progress_level(db: AsyncSession, tkn: str):
     progress = result.all()
     return progress
 
-async def check_exist_progress_level(db: AsyncSession, level: int, type: str, user_id: int):
-    result = await db.execute(select(ProgressLevel).where(ProgressLevel.level == level).where(ProgressLevel.type == type).where(ProgressLevel.user_id == user_id))
+async def check_exist_progress_level(db: AsyncSession, type: str, user_id: int):
+    result = await db.execute(select(ProgressLevel).where(ProgressLevel.type == type).where(ProgressLevel.user_id == user_id))
     progress = result.scalars().first()
     return progress
