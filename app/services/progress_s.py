@@ -32,7 +32,7 @@ async def update_progress_level(db: AsyncSession, progress: ProgressCreated, tkn
     user = await get_user_by_token(db, tkn)
     if not user:
         return None
-    result = await db.execute(select(ProgressLevel).where(ProgressLevel.user_id == user.id and ProgressLevel.level == progress.level and ProgressLevel.type == progress.type))
+    result = await db.execute(select(ProgressLevel).where(ProgressLevel.user_id == user.id and ProgressLevel.type == progress.type))
     progress_level = result.scalars().first()
     if progress_level:
         progress_level.correct =+ progress.correct
