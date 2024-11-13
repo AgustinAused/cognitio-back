@@ -17,7 +17,7 @@ async def create_progress_level(db: AsyncSession, progress: ProgressCreated, tkn
         user_id=user.id,
         type=progress.type,
         correct=progress.correct,
-        incorrect=progress.incorrect, 
+        total= progress.incorrect + progress.correct, 
         completed_at = datetime.now().date()
     )
 
