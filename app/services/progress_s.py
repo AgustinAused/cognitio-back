@@ -17,7 +17,7 @@ async def create_progress_level(db: AsyncSession, progress: ProgressCreated, tkn
         user_id=user.id,
         type=progress.type,
         correct=progress.correct,
-        incorrect=progress.incorrect, 
+        total= progress.incorrect + progress.correct, 
         completed_at = datetime.now().date()
     )
 
@@ -32,7 +32,7 @@ async def update_progress_level(db: AsyncSession, progress: ProgressCreated, tkn
     user = await get_user_by_token(db, tkn)
     if not user:
         return None
-    result = await db.execute(select(ProgressLevel).where(ProgressLevel.user_id == user.id))
+    result = await db.execute(select(ProgressLevel).where(ProgressLevel.user_id == user.id and ProgressLevel.type == progress.type))
     progress_level = result.scalars().first()
     if progress_level:
         progress_level.correct =+ progress.correct
@@ -48,7 +48,7 @@ async def get_progress_level(db: AsyncSession, tkn: str):
     progress = result.all()
     return progress
 
-async def check_exist_progress_level(db: AsyncSession, level: int, type: str, user_id: int):
-    result = await db.execute(select(ProgressLevel).where(ProgressLevel.level == level).where(ProgressLevel.type == type).where(ProgressLevel.user_id == user_id))
+async def check_exist_progress_level(db: AsyncSession, type: str, user_id: int):
+    result = await db.execute(select(ProgressLevel).where(ProgressLevel.type == type).where(ProgressLevel.user_id == user_id))
     progress = result.scalars().first()
     return progress
