@@ -14,7 +14,7 @@ async def add_progress_level(
     db: AsyncSession = Depends(get_db)
 ):
     # Comprobamos si el nivel de progreso ya existe
-    existing_progress = await progress_c.check_exist_progress_level(db,progress.level,progress.type, progress.user_id)
+    existing_progress = await progress_c.check_exist_progress_level(db,progress.type, progress.user_id)
     if existing_progress:
         # si existe
         return await progress_c.update_progress_level(db, progress, bearer_token)
@@ -23,6 +23,6 @@ async def add_progress_level(
 
 
 @router.get("/", response_model= ProgressOut)    
-async def get_progress_level(bearer_token: Annotated[str | None, Header()], db: AsyncSession = Depends(get_db)):
+async def get_progres_by_usr(bearer_token: Annotated[str | None, Header()], db: AsyncSession = Depends(get_db)):
     return await progress_c.get_progress_level(db, bearer_token)
 
