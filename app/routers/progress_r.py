@@ -14,7 +14,7 @@ async def add_progress_level(
     db: AsyncSession = Depends(get_db)
 ):
     # Comprobamos si el nivel de progreso ya existe
-    existing_progress = await progress_c.check_exist_progress_level(db,progress.level,progress.type, progress.user_id)
+    existing_progress = await progress_c.check_exist_progress_level(db,progress.type, progress.user_id)
     if existing_progress:
         # si existe
         return await progress_c.update_progress_level(db, progress, bearer_token)
