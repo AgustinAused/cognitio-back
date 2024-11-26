@@ -22,7 +22,7 @@ class ProgressOut(BaseModel):
     id: int
     level: int
     type: str
-    completed_at: Optional[str] = None 
+    completed_at: str| None 
     correct: int
     total: int
 

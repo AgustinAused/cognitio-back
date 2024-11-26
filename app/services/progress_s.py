@@ -1,10 +1,11 @@
-from app.schemas.progress_schm import ProgressCreated
+from app.schemas.progress_schm import ProgressCreated, ProgressOut
 from app.models.models import ProgressLevel
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.sql.expression import select, delete
 from sqlalchemy.exc import SQLAlchemyError
 from app.services.user_s import get_user_by_token
 from datetime import datetime
+
 
 
 async def create_progress_level(db: AsyncSession, progress: ProgressCreated, tkn: str):
@@ -75,18 +76,28 @@ async def update_progress_level(progress: ProgressCreated, db: AsyncSession, tkn
 async def get_progress_level(db: AsyncSession, tkn: str):
     # Obtener el usuario a partir del token
     user = await get_user_by_token(db, tkn)
-    
+
     if not user:
         raise ValueError("Usuario no encontrado")
 
     try:
         result = await db.execute(select(ProgressLevel).where(ProgressLevel.user_id == user.id))
-
         progress = result.scalars().all()
-        
-        return progress
+
+        # Serializar los datos para ajustarlos al modelo
+        serialized_progress = [
+            ProgressOut(
+                id=item.id,
+                level=item.level,
+                type=item.type,
+                completed_at=item.completed_at.isoformat() if item.completed_at else None,
+                correct=item.correct,
+                total=item.total,
+            )
+            for item in progress
+        ]
+        return serialized_progress
     except SQLAlchemyError as e:
-        # Manejo de errores si la consulta falla
         print(f"Error al obtener los niveles de progreso: {str(e)}")
         raise
 
