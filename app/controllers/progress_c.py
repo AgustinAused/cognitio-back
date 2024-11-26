@@ -18,7 +18,7 @@ async def get_progress_level(db: AsyncSession, tkn: str):
 
 
 async def update_progress_level(progress: ProgressCreated, db: AsyncSession, tkn: str):
-    progress = await progress_s.update_progress_level(db, progress, tkn)
+    progress = await progress_s.update_progress_level(progress, db, tkn)
     if not progress:
         raise HTTPException(status_code=400, detail="Error updating progress")
     return progress
@@ -28,6 +28,13 @@ async def check_exist_progress_level(db: AsyncSession,  type: str, user_id: int)
     if not progress:
         return None
     return progress
+
+
+async def delete_progress_level(progress_id: int, db: AsyncSession):
+    progress = await progress_s.delete_progress_level(db, progress_id)
+    if progress:
+        return {"detail": "Progress deleted"}
+    return {"detail": "Progress not found"}
 
 
 
