@@ -30,6 +30,13 @@ async def check_exist_progress_level(db: AsyncSession,  type: str, user_id: int)
     return progress
 
 
+async def delete_progress_level(progress_id: int, db: AsyncSession):
+    progress = await progress_s.delete_progress_level(db, progress_id)
+    if progress:
+        return {"detail": "Progress deleted"}
+    return {"detail": "Progress not found"}
+
+
 
 
 

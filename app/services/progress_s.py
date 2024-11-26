@@ -1,7 +1,7 @@
 from app.schemas.progress_schm import ProgressCreated
 from app.models.models import ProgressLevel
 from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.sql.expression import select
+from sqlalchemy.sql.expression import select, delete
 from sqlalchemy.exc import SQLAlchemyError
 from app.services.user_s import get_user_by_token
 from datetime import datetime
@@ -94,3 +94,13 @@ async def check_exist_progress_level(db: AsyncSession, type: str, user_id: int):
     result = await db.execute(select(ProgressLevel).where(ProgressLevel.type == type).where(ProgressLevel.user_id == user_id))
     progress = result.scalars().first()
     return progress
+
+async def delete_progress_level(db: AsyncSession, progress_id: int):
+    try:
+        await db.execute(delete(ProgressLevel).where(ProgressLevel.id == progress_id))
+        await db.commit()
+        return True
+    except SQLAlchemyError as e:
+        print(f"Error al eliminar el nivel de progreso: {str(e)}")
+        raise
+

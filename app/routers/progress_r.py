@@ -35,3 +35,10 @@ async def add_progress_level(
 async def get_progres_by_usr(bearer_token: Annotated[str | None, Header()], db: AsyncSession = Depends(get_db)):
     return await progress_c.get_progress_level(db, bearer_token)
 
+
+@router.delete("/{progress_id}")
+async def delete_progress_level(progress_id: int, db: AsyncSession = Depends(get_db)):
+    return await progress_c.delete_progress_level(progress_id, db)
+    
+
+
