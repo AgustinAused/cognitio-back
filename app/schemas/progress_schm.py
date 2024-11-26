@@ -18,10 +18,13 @@ class ProgressUpdate(ProgressBase):
     incorrect: Optional[int] = None
 
 
-class ProgressOut(ProgressBase):
+class ProgressOut(BaseModel):
     id: int
-    completed_at: Optional[str] = None
+    level: int
+    type: str
+    completed_at: Optional[str] = None 
     correct: int
-    incorrect: int
+    total: int
+
     class Config:
         from_attributes = True
