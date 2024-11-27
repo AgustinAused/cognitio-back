@@ -27,6 +27,7 @@
       "Asegúrate de que las preguntas sean claras y no tengan ambigüedades.",
       "Solo responder con el objeto solicitado, no agregar nada mas",
       "Provide output in valid JSON format respecting the example provided",
-      "Los ejercicios se hacen en base a un solo texto, un ejercicio es una pregunta sobre un texto original"
+      "Los ejercicios se hacen en base a un solo texto, un ejercicio es una pregunta sobre un texto original",
+      "Solo debes generar 1 respuesta correcta y el resto deben ser incorrectas"
     ]
   }
