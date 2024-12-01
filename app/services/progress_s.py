@@ -101,8 +101,8 @@ async def get_progress_level(db: AsyncSession, tkn: str):
         print(f"Error al obtener los niveles de progreso: {str(e)}")
         raise
 
-async def check_exist_progress_level(db: AsyncSession, type: str, user_id: int):
-    result = await db.execute(select(ProgressLevel).where(ProgressLevel.type == type).where(ProgressLevel.user_id == user_id))
+async def check_exist_progress_level(db: AsyncSession, type: str, user_id: int, level: int):
+    result = await db.execute(select(ProgressLevel).where(ProgressLevel.type == type).where(ProgressLevel.user_id == user_id).where(ProgressLevel.level == level))
     progress = result.scalars().first()
     return progress
 

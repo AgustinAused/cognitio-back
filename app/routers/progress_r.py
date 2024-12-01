@@ -23,7 +23,7 @@ async def add_progress_level(
         raise HTTPException(status_code=401, detail="Invalid token")
 
     # Comprobamos si el nivel de progreso ya existe
-    existing_progress = await progress_c.check_exist_progress_level(db, progress.type, user.id)
+    existing_progress = await progress_c.check_exist_progress_level(db, progress.type, user.id, progress.level)
     if existing_progress:
         # Si existe
         return await progress_c.update_progress_level(progress, db, bearer_token)
